@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from sqlalchemy import MetaData
 
-#import config
+import config
 from flaskext.markdown import Markdown
 
 naming_convention = {
@@ -20,16 +20,13 @@ migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
-    # from_object 를 from_envvar 로 변경
-    app.config.from_envvar('APP_CONFIG_FILE')
-    
     # 아래 config 부분을 config.py 로 따로 두고 불러오
     #basedir = os.path.abspath(os.path.dirname(__file__))
     #app.config['SQLALCHEMY_DATABASE_URI'] = \
     #       'sqlite:///' + os.path.join(basedir, 'pybo.db' )
     #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     #app.config['SECRET_KEY'] =  "dev"    
-    #app.config.from_object(config)
+    app.config.from_object(config)
 
     db.init_app(app)
     if app.config['SQLALCHEMY_DATABASE_URI'].startswith("sqlite"):
