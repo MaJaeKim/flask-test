@@ -1,4 +1,5 @@
-¼­.ieda
+.ieda
 pybo.db
 *.pyc
 __pycache__
+logs
