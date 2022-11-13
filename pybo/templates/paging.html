@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="pagination justify-content-center row">
+{{ pagination.info }}
+</div>
+<div class="container my-3">
+<table class="table">
+  <thead>
+	<tr class="thead-dark">
+		<th>번호</th>
+		<th>추천</th>
+		<th style="width:50%">제목</th>
+		<th>글쓴이</th>
+		<th>작성일</th>
+	</tr>
+  </thead>
+  <tbody>
+	<tbody>
+		{% if question_list %}
+		{%   for question in question_list %}
+			<tr>
+			<td class="text-center">{{ pagination.total - loop.index - pagination.skip + 1}}</td>
+			<td>
+			{% if question.voter > 0 %}
+				<span class="badge badge-warning px-2 py-1">
+				{{ question.voter }}
+				</span>
+			{% endif %}
+			</td>
+			<td class="text-left">
+				<a href="{{ url_for('question.detail', question_id=question.id) }}">{{ question.subject }}</a>
+				{% if question.answer>0 %}
+					<span class="text-danger small ml-2">{{ question.answer }}</span>
+				{% endif %}
+			</td>
+			<td>{{ question.username }}</td>
+			<td>{{ question.create_date|datetimetosec }}</td>
+
+			</tr>
+		{%    endfor %}
+		{% else %}
+			<p colspan="3">질문이 없습니다.</p>	
+		{% endif %}
+	</tbody>
+  </tbody>
+</table>
+</div>
+<div class="pagination justify-content-center">
+{{ pagination.links }}
+<span style="margin-left:10;"><a href="{{ url_for('question.create') }}" class="btn btn-primary">
+질문 등록</a></span>
+<diV>
+
+{% endblock %}

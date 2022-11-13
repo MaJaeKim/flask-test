@@ -53,9 +53,11 @@ def create_app():
     app.register_blueprint(comment_views.bp)
     app.register_blueprint(vote_views.bp)    
 
-    from .filter import format_datetime, format_datetime_han
+    from .filter import format_datetime, format_datetime_han,format_datetime_to_sec
+    app.jinja_env.add_extension('jinja2.ext.loopcontrols')
     app.jinja_env.filters['datetime'] = format_datetime
     app.jinja_env.filters['datetimehan'] = format_datetime_han
+    app.jinja_env.filters['datetimetosec'] = format_datetime_to_sec
 
     Markdown( app, extensions=['nl2br', 'fenced_code'])
     

@@ -7,3 +7,6 @@ def format_datetime_han( value, fmt='%y년 %m월 %d일 %H:%M:%S' ):
 
 def format_datetime( value, fmt='%y-%m-%d %H:%M:%S' ):
     return value.strftime( fmt )
+
+def format_datetime_to_sec( value):
+    return value[:19]
